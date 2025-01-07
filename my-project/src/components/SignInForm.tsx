@@ -1,23 +1,56 @@
+import React,{ useState } from "react";
 import { z } from "zod"
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
+type FormValues = {
+  username: string;
+  password: string;
+};
+
+// const formSchema = z.object({
+//   username: z.string().min(2, {
+//     message: "Votre nom d'utilisateur doit comporter au moins 2 caractères.",
+//   }),
+//   password: z.string().min(6, {
+//     message: "Votre Mot de passe doit comporter au moins 6 caractères.",
+//   }),
+// })
 
 export function SignInForm() {
-  
+
+  const [formValues, setFormValues] = useState<FormValues>({
+    username: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     formSchema.parse(formValues);
+  //     setErrors({});
+  //     console.log("Connexion réussie :", formValues);
+  //     // Logique pour envoyer les données au back-end ici
+  //   } catch (err) {
+      
+  //     const errorMessages = {};
+  //     err.errors.forEach((error) => {
+  //       errorMessages[error.path[0]] = error.message;
+  //     });
+  //     setErrors(errorMessages);
+  //   }
+  // };
+    
     return (
         <>
-          {/*
-            This example requires updating your template:
-    
-            ```
-            <html class="h-full bg-white">
-            <body class="h-full">
-            ```
-          */}
           <div className="justify-center items-center h-screen px-6 py-20 lg:px-8 bg-red-form shadow-2xl rounded-md" >
             <div className="flex justify-center sm:mx-auto sm:w-full sm:max-w-sm">
               <h2 className="mt-10 ml-12 text-center text-2xl/9 font-bold tracking-tight text-red-400">
@@ -37,14 +70,21 @@ export function SignInForm() {
                     Nom d'utilisateur
                   </label>
                   <div className="mt-2">
-                    <input
-                      id="username"
-                      name="username"
-                      type="username"
-                      required
-                      autoComplete="username"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
-                    />
+                  <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    value={formValues.username}
+                    onChange={handleChange}
+                    required
+                    autoComplete="username"
+                    className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
+                      errors.username ? "border-red-500 outline-red-500" : ""
+                    }`}
+                  />
+                  {errors.username && (
+                    <p className="mt-1 text-sm text-red-500">{errors.username}</p>
+                  )}
                   </div>
                 </div>
     
@@ -60,14 +100,21 @@ export function SignInForm() {
                     </div>
                   </div>
                   <div className="mt-2">
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      required
-                      autoComplete="current-password"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
-                    />
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={formValues.password}
+                    onChange={handleChange}
+                    required
+                    autoComplete="current-password"
+                    className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
+                      errors.password ? "border-red-500 outline-red-500" : ""
+                    }`}
+                  />
+                  {errors.password && (
+                    <p className="mt-1 text-sm text-red-500">{errors.password}</p>
+                  )}
                   </div>
                 </div>
     
