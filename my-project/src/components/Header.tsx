@@ -1,17 +1,30 @@
 import { useState } from 'react'
+import { Link, useNavigate } from "react-router-dom";
+import Informations from './Forms/Informations';
 
-const Header = ({ onLogOut }) => {
+const Header = () => {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate(); 
+
+  const onLogOut = () => {
+    setIsAuthenticated(false); 
+  };
+
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    onLogOut();
+    navigate("/connexion");
+  }
 
   return (
     <div className="bg-white">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" onClick={(e) => {e.preventDefault();
-                onLogOut();
-            }} className="text-sm/6 font-semibold text-gray-900">
+            <Link to="/connexion" onClick={handleLogOut} className="text-sm/6 font-semibold text-gray-900">
               Se déconnecter <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
@@ -32,7 +45,7 @@ const Header = ({ onLogOut }) => {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
             <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-              Bonjour Prénom Nom
+              Bonjour "Prénom" "Nom"
             </h1>
           </div>
         </div>
@@ -49,6 +62,7 @@ const Header = ({ onLogOut }) => {
           />
         </div>
       </div>
+      <Informations></Informations>
     </div>
   );
 };

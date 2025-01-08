@@ -1,5 +1,6 @@
 import React,{ useState } from "react";
 import { z } from "zod"
+import { useNavigate } from "react-router-dom";
 
 type FormValues = {
   username: string;
@@ -23,6 +24,7 @@ export function SignUpForm() {
     });
   
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    const navigate = useNavigate();
   
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -38,7 +40,7 @@ export function SignUpForm() {
         formSchema.parse(formValues);
         setErrors({});
         console.log("Inscription réussie :", formValues);
-        // Logique pour envoyer les données au back-end ici
+        navigate('/connexion', {state : { successMessage : "Inscription réussie !"}});
       } catch (err) {
         
         const errorMessages = {};
@@ -48,7 +50,7 @@ export function SignUpForm() {
         setErrors(errorMessages);
       }
     };
-  
+
     return (
         <>
           <div className="justify-center items-center h-screen px-6 py-20 lg:px-8 bg-red-form shadow-2xl rounded-md" >
@@ -64,7 +66,7 @@ export function SignUpForm() {
             </div>
     
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              <form action="#" method="POST" className="space-y-6">
+              <form action="#" className="space-y-6">
                 <div>
                   <label htmlFor="username" className="block text-sm/6 font-medium text-red-400">
                     Nom d'utilisateur
@@ -116,6 +118,7 @@ export function SignUpForm() {
                 <div>
                   <button
                     type="submit"
+                    onClick={handleSubmit}
                     className="flex w-full justify-center rounded-md bg-red-400 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                   >
                     S'inscrire

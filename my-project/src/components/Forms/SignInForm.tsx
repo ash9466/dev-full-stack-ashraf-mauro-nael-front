@@ -1,21 +1,19 @@
 import React,{ useState } from "react";
 import { z } from "zod"
+import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 type FormValues = {
   username: string;
   password: string;
 };
 
-// const formSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Votre nom d'utilisateur doit comporter au moins 2 caractères.",
-//   }),
-//   password: z.string().min(6, {
-//     message: "Votre Mot de passe doit comporter au moins 6 caractères.",
-//   }),
-// })
-
 export function SignInForm() {
+
+  const location = useLocation();
+  const successMessage = location.state?.successMessage;
+
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState<FormValues>({
     username: "",
@@ -32,6 +30,10 @@ export function SignInForm() {
     }));
   };
 
+  function navigateToSignUpForm(){
+      navigate('/');
+  }
+  
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   try {
@@ -94,9 +96,9 @@ export function SignInForm() {
                       Mot de passe
                     </label>
                     <div className="text-sm">
-                      <a href="#" className="font-semibold text-red-400 hover:text-red-600">
+                      <Link to='/' onClick={navigateToSignUpForm} className="font-semibold text-red-400 hover:text-red-600">
                         Compte non crée ? S'inscrire
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="mt-2">
@@ -115,6 +117,9 @@ export function SignInForm() {
                   {errors.password && (
                     <p className="mt-1 text-sm text-red-500">{errors.password}</p>
                   )}
+                  {successMessage && (
+                    <p className="mt-1 text-sm text-green-500">{successMessage}</p>
+                  )}
                   </div>
                 </div>
     
@@ -123,6 +128,7 @@ export function SignInForm() {
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-red-400 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                   >
+                    <Link to='/accueil'></Link>
                     Se connecter
                   </button>
                 </div>

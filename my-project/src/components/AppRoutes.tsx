@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { SignInForm } from './components/SignInForm';
-import { SignUpForm } from './components/SignUpForm';
-import Header from './components/Header';
+import { SignInForm } from './Forms/SignInForm';
+import { SignUpForm } from './Forms/SignUpForm';
+import Header from './Header';
 
 const AppRoutes = () => {
-
-    const [isAuthenticated, setIsAuthenticated] = useState(false); 
-
-    const handleLogout = () => {
-        setIsAuthenticated(false); 
-    };
 
     return (
         <Router> 
@@ -19,7 +13,7 @@ const AppRoutes = () => {
                 <Route path="/connexion" element={<SignInForm />} />
                 <Route
                 path="/accueil"
-                element={isAuthenticated ? <Header onLogOut={handleLogout} /> : <Navigate to="/connexion" />}
+                element={<Header/>}
                 />
             </Routes>
         </Router>
