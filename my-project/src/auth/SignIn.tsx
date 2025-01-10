@@ -35,27 +35,48 @@ export function SignInForm() {
     }));
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      if (!response.ok) throw new Error('Connexion raté');
-      const data = await response.json();
-      setUser(data);
-      localStorage.setItem('token', data.token);
-    } catch (error) {
-      console.error('Erreur de conenxion', error);
-    }
-  };
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch('', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ email, password }),
+  //     });
+  //     if (!response.ok) throw new Error('Connexion raté');
+  //     const data = await response.json();
+  //     setUser(data);
+  //     localStorage.setItem('token', data.token);
+  //   } catch (error) {
+  //     console.error('Erreur de conenxion', error);
+  //   }
+  // };
 
   function navigateToSignUpForm(){
       navigate('/');
   }
     
+  function handleSubmitForm(){
+    
+    const fakeApiResponse = {
+      success: true,
+      user: {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Doe',
+        role: 'ADMINISTRATOR',
+      },
+    };
+  
+    if(fakeApiResponse.success){
+      setUser(fakeApiResponse.user);
+      navigate('/accueil');
+    }
+    else{
+      console.log('Connexion échouée !');
+    }
+  }
+
   return (
       <>
         <div className="justify-center items-center h-screen px-6 py-20 lg:px-8 bg-red-form shadow-2xl rounded-md" >
@@ -71,7 +92,7 @@ export function SignInForm() {
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="#" method="POST" className="space-y-6">
+            <form onSubmit={handleSubmitForm} method="POST" className="space-y-6">
               <div>
                 <label htmlFor="username" className="block text-sm/6 font-medium text-red-400">
                   Nom d'utilisateur

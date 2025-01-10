@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 const callouts = [
-
-
   {
     id: 1,
     name: 'Basic Tee',

@@ -19,14 +19,6 @@ const AppRoutes = () => {
                 />
                  <Route path="/productdetail" element={<ProductDetail />} />
                  <Route path="/non-autorisé" element='' /> /*Créer une page pour les utilisateurs non autorisés à accéder à une ressource spécifique */
-                 <Route
-            path="/admin"
-            element={
-              <PrivateRoute>
-                <Home/>
-              </PrivateRoute>
-            }
-          />
             </Routes>
         </Router>
     );
