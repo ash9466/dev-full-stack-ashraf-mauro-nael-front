@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const product = {
   name: 'sicogi',
   price: '$192',
-  href: '#',
   images: [
     {
       src: 'https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
@@ -26,7 +26,8 @@ const product = {
 };
 
 export default function ProductDetail() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+
+  const { id } = useParams();
 
   return (
     <div className="bg-white">
@@ -47,7 +48,7 @@ export default function ProductDetail() {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
             <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-              Nom de la ressource
+              {product.name}
             </h1>
           </div>
         </div>

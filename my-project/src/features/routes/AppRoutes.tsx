@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { SignInForm } from '../../auth/SignIn';
 import { SignUpForm } from '../../auth/SignUp';
 import Home from '../pages/Home';
-import ProductDetail from '@/components/ProductDetail';
+import ProductDetail from '@/features/pages/ProductDetail';
 import PrivateRoute from './PrivateRoutes';
 
 const AppRoutes = () => {
@@ -13,12 +13,9 @@ const AppRoutes = () => {
             <Routes>
                 <Route path="/" element={<SignUpForm />} />
                 <Route path="/connexion" element={<SignInForm />} />
-                <Route
-                path="/accueil"
-                element={<Home/>}
-                />
-                 <Route path="/productdetail" element={<ProductDetail />} />
-                 <Route path="/non-autorisé" element='' /> /*Créer une page pour les utilisateurs non autorisés à accéder à une ressource spécifique */
+                <Route path="/accueil" element={<Home/>}/>
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/non-autorisé" element='' /> /*Créer une page pour les utilisateurs non autorisés à accéder à une ressource spécifique */
             </Routes>
         </Router>
     );
