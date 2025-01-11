@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const product = {
   name: 'sicogi',
@@ -10,24 +10,23 @@ const product = {
       alt: 'Two each of gray, white, and black shirts laying flat.',
     },
   ],
-  colors: [
-    { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-  ],
-  description: 'Abobo sicogi',
-  highlights: [
-    'Abobo sicogi',
-    'Abobo sicogi',
-    'Abobo sicogi',
-    'Abobo sicogi',
+  feedbacks: [
+    'Eteint',
+    'Super cool !',
+    "Y'a mieux sah",
+    "Je ne recommanderais jamais cela à personne dans ma vie !",
   ],
   details: 'sicogi',
 };
 
 export default function ProductDetail() {
 
-  const { id } = useParams();
+  const location = useLocation();
+  const product = location.state?.hope;
+
+  if(!product){
+    return <p>There's no product</p>
+  }
 
   return (
     <div className="bg-white">
@@ -65,7 +64,6 @@ export default function ProductDetail() {
           />
         </div>
       </div>
-        {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
@@ -74,32 +72,21 @@ export default function ProductDetail() {
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
-            {/* Description and details */}
             <div>
-              <h3 className="sr-only">Description</h3>
-
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">sicogi</h3>
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-base text-gray-900">Description détaillée</p>
               </div>
             </div>
             <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">sicogi</h2>
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{product.details}</p>
-              </div>
+              <h3 className="text-sm font-medium text-gray-900">Accès</h3>
+            </div>
+            <div className="mt-10">
+              {product.feedbacks.map((feedback, index) => (
+                <div className="mt-4 space-y-6">
+                  <p className="text-sm text-gray-600">Feedback {index + 1}</p>
+                  <p className="text-sm text-gray-600">Contenu du feedback</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
