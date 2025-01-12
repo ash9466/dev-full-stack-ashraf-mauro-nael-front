@@ -22,10 +22,14 @@ const product = {
 export default function ProductDetail() {
 
   const location = useLocation();
-  const product = location.state?.hope;
+  const hope = location.state?.hope;
 
-  if(!product){
-    return <p>There's no product</p>
+  function isFeedBackThresholdExceeded(){
+    throw new Error('Function not implemented.');
+  }
+
+  function addFeedback(){
+    throw new Error('Function not implemented.');
   }
 
   return (
@@ -47,7 +51,7 @@ export default function ProductDetail() {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
             <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-              {product.name}
+              {hope.name}
             </h1>
           </div>
         </div>
@@ -67,7 +71,7 @@ export default function ProductDetail() {
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              {product.name}
+              {hope.name}
             </h1>
           </div>
 
@@ -81,7 +85,11 @@ export default function ProductDetail() {
               <h3 className="text-sm font-medium text-gray-900">Accès</h3>
             </div>
             <div className="mt-10">
-              {product.feedbacks.map((feedback, index) => (
+              <div className='flex items-center'>
+                <h3>Feedbacks</h3>
+                <img className='cursor-pointer' src="/add-icon.svg" alt="add-icon" onClick={addFeedback} />
+              </div>
+              {hope.feedbacks.map((feedback, index) => (
                 <div className="mt-4 space-y-6">
                   <p className="text-sm text-gray-600">Feedback {index + 1}</p>
                   <p className="text-sm text-gray-600">Contenu du feedback</p>

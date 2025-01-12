@@ -6,13 +6,13 @@ import { useUser } from '@/auth/services/UserContext';
 
 const Home = () => {
 
-  const { user, setUser } = useUser();
+  // const { user, setUser } = useUser();
   
-  if(!user){
-    return(
-      <><Header /></>
-    );
-  }
+  // if(!user){
+  //   return(
+  //     <><Header /></>
+  //   );
+  // }
 
   return (
     <><Header />

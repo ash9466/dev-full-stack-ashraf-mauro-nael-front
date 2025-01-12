@@ -1,3 +1,4 @@
+import { useUser } from "@/auth/services/UserContext";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -64,6 +65,8 @@ export default function HopeList() {
 
   const [hopes, setHopes] = useState(InitialHopes);
   const navigate = useNavigate();
+  const { user, setUser } = useUser(); 
+
   
   const navigateToHopePage = (hope) => {
     navigate(`/hope/${hope.id}`, {state : { hope }});
@@ -97,11 +100,13 @@ export default function HopeList() {
                 </h3>
                 <div className="flex justify-between">
                   <p className="text-base font-semibold text-gray-900">{hope.name}</p>
-                  <button className="text-gray-500 hover:underline cursor-pointer mr-4" onClick={(e) => {
-                    e.stopPropagation();
-                    removeHope(hope.id);
-                  }}
-                    >Supprimer</button>
+                  {user?.role == "ADMINISTRATOR" && (
+                    <button className="text-gray-500 hover:underline cursor-pointer mr-4" onClick={(e) => {
+                      e.stopPropagation();
+                      removeHope(hope.id);
+                    }}
+                      >Supprimer</button>
+                  )}
                 </div>
               </div>
             ))}
