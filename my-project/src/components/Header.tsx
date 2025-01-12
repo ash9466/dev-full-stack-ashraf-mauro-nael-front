@@ -7,6 +7,16 @@ const Header = () => {
   const { user, setUser } = useUser(); 
   const navigate = useNavigate();
 
+  const onLogOut = () => {
+    setUser(null); 
+  };
+
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    onLogOut();
+    navigate("/connexion"); 
+  }
+
   if (!user) {
     return (
       <div className="bg-white">
@@ -33,16 +43,6 @@ const Header = () => {
         </div>
       </div>
     );
-  }
-
-  const onLogOut = () => {
-    setUser(null); 
-  };
-
-  const handleLogOut = (e) => {
-    e.preventDefault();
-    onLogOut();
-    navigate("/connexion"); 
   }
 
   return (

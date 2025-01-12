@@ -1,6 +1,6 @@
 import React,{ useState } from "react";
 import { z } from "zod"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type FormValues = {
   username: string;
@@ -23,33 +23,33 @@ export function SignUpForm() {
       password: "",
     });
   
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
-    const navigate = useNavigate();
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
   
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        [name]: value,
-      }));
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      try {
-        formSchema.parse(formValues);
-        setErrors({});
-        console.log("Inscription réussie :", formValues);
-        navigate('/connexion', {state : { successMessage : "Inscription réussie !"}});
-      } catch (err) {
-        
-        const errorMessages = {};
-        err.errors.forEach((error) => {
-          errorMessages[error.path[0]] = error.message;
-        });
-        setErrors(errorMessages);
-      }
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      formSchema.parse(formValues);
+      setErrors({});
+      console.log("Inscription réussie :", formValues);
+      navigate('/connexion', {state : { successMessage : "Inscription réussie !"}});
+    } catch (err) {
+      
+      const errorMessages = {};
+      err.errors.forEach((error) => {
+        errorMessages[error.path[0]] = error.message;
+      });
+      setErrors(errorMessages);
+    }
+  };
 
     return (
         <>
@@ -95,6 +95,11 @@ export function SignUpForm() {
                     <label htmlFor="password" className="block text-sm/6 font-medium text-red-400">
                       Mot de passe
                     </label>
+                    <div className="text-sm">
+                      <Link to='/connexion' className="font-semibold text-red-400 hover:text-red-600">
+                        Déjà inscrit ? Se connecter
+                      </Link>
+                  </div>
                   </div>
                   <div className="mt-2">
                     <input

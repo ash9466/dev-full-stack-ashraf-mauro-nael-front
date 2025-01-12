@@ -52,10 +52,6 @@ export function SignInForm() {
   //   }
   // };
 
-  function navigateToSignUpForm(){
-      navigate('/');
-  }
-    
   function handleSubmitForm(){
     
     const fakeApiResponse = {
@@ -122,7 +118,7 @@ export function SignInForm() {
                     Mot de passe
                   </label>
                   <div className="text-sm">
-                    <Link to='/' onClick={navigateToSignUpForm} className="font-semibold text-red-400 hover:text-red-600">
+                    <Link to='/' className="font-semibold text-red-400 hover:text-red-600">
                       Compte non crée ? S'inscrire
                     </Link>
                   </div>
