@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f0c4e8a1-dc8e-4fa4-8fe5-210e9c5cceac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/my-project/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/my-project/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-project/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/my-project/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-project/src/auth/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/my-project/src/auth/SignIn.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-project/src/auth/services/UserContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/my-project/src/auth/services/UserContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-project/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/my-project/src/components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-project/src/features/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/my-project/src/features/ProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-project/src/features/models/Information.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-project/src/features/routes/AppRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/my-project/src/features/routes/AppRoutes.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "LeanAmira"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ash9466/dev-full-stack-ashraf-mauro-nael-front.git",
+    "accountId": "9d2f7d74-7554-4758-8e03-4fb5b872e15e"
+  }
+}]]></component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2rSMfQc3MB1MFGDn2MwRKfYQScq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "nael",
+    "last_opened_file_path": "C:/Users/ADMIN/IdeaProjects/dev-fullstack-ashraf-mauro-nael-back"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f0c4e8a1-dc8e-4fa4-8fe5-210e9c5cceac" name="Changes" comment="" />
+      <created>1736548127853</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1736548127853</updated>
+    </task>
+    <servers />
+  </component>
+</project>

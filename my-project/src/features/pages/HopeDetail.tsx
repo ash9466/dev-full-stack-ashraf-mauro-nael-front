@@ -1,28 +1,10 @@
 import { useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-const product = {
-  name: 'sicogi',
-  price: '$192',
-  images: [
-    {
-      src: 'https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-      alt: 'Two each of gray, white, and black shirts laying flat.',
-    },
-  ],
-  feedbacks: [
-    'Eteint',
-    'Super cool !',
-    "Y'a mieux sah",
-    "Je ne recommanderais jamais cela à personne dans ma vie !",
-  ],
-  details: 'sicogi',
-};
-
 export default function ProductDetail() {
 
   const location = useLocation();
-  const hope = location.state?.hope;
+  const hope = location.state?.data;
 
   function isFeedBackThresholdExceeded(){
     throw new Error('Function not implemented.');

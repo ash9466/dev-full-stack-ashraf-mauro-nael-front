@@ -10,7 +10,7 @@ const Header = () => {
   const onLogOut = () => {
     setUser(null); 
   };
-
+  
   const handleLogOut = (e) => {
     e.preventDefault();
     onLogOut();

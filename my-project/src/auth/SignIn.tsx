@@ -3,9 +3,10 @@ import { z } from "zod"
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useUser } from './services/UserContext';
+import axios from "axios";
 
 type FormValues = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -13,19 +14,17 @@ export function SignInForm() {
 
   const location = useLocation();
   const successMessage = location.state?.successMessage;
-
   const navigate = useNavigate();
-
-  const [formValues, setFormValues] = useState<FormValues>({
-    username: "",
-    password: "",
-  });
-
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useUser();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const [formValues, setFormValues] = useState<FormValues>({
+    email: "",
+    password: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,47 +34,36 @@ export function SignInForm() {
     }));
   };
 
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await fetch('', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({ email, password }),
-  //     });
-  //     if (!response.ok) throw new Error('Connexion raté');
-  //     const data = await response.json();
-  //     setUser(data);
-  //     localStorage.setItem('token', data.token);
-  //   } catch (error) {
-  //     console.error('Erreur de conenxion', error);
-  //   }
-  // };
-
-  function handleSubmitForm(){
-    
-    const fakeApiResponse = {
-      success: true,
-      user: {
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        role: 'ADMINISTRATOR',
-      },
-    };
-  
-    if(fakeApiResponse.success){
-      setUser(fakeApiResponse.user);
-      navigate('/accueil');
-    }
-    else{
-      console.log('Connexion échouée !');
+  async function loginUser(credentials: { email: string; password: string; }) {
+    const API_URL = "http://localhost:8080/api/authentication/authenticate";
+    try {
+      const response = await axios.post(API_URL, credentials);
+      return response.data;
+    } catch (error) {
+      console.error("Erreur lors de la connexion :", error.response?.data || error.message);
+      throw error;
     }
   }
 
+  const submitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const credentials = {
+        email: formValues.email,
+        password: formValues.password,
+      };
+      const user = await loginUser(credentials);
+      setUser(user); 
+      navigate('/accueil');
+    } catch (error) {
+      console.error("Erreur lors de la connexion :", error);
+      setErrors({ server: "Nom d'utilisateur ou mot de passe incorrect." });
+    }
+  };
+
   return (
       <>
-        <div className="justify-center items-center h-screen px-6 py-20 lg:px-8 bg-red-form shadow-2xl rounded-md" >
+        <div className="justify-center items-center h-screen px-6 py-20 lg:px-8 shadow-2xl rounded-md" >
           <div className="flex justify-center sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="mt-10 ml-12 text-center text-2xl/9 font-bold tracking-tight text-red-400">
               Se Connecter
@@ -88,26 +76,26 @@ export function SignInForm() {
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form onSubmit={handleSubmitForm} method="POST" className="space-y-6">
+            <form onSubmit={submitForm} method="POST" className="space-y-6">
               <div>
-                <label htmlFor="username" className="block text-sm/6 font-medium text-red-400">
-                  Nom d'utilisateur
+                <label htmlFor="email" className="block text-sm/6 font-medium text-red-400">
+                  Email
                 </label>
                 <div className="mt-2">
                 <input
-                  id="username"
-                  name="username"
+                  id="email"
+                  name="email"
                   type="text"
-                  value={formValues.username}
+                  value={formValues.email}
                   onChange={handleChange}
                   required
-                  autoComplete="username"
+                  autoComplete="email"
                   className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
-                    errors.username ? "border-red-500 outline-red-500" : ""
+                    errors.email ? "border-red-500 outline-red-500" : ""
                   }`}
                 />
-                {errors.username && (
-                  <p className="mt-1 text-sm text-red-500">{errors.username}</p>
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-500">{errors.email}</p>
                 )}
                 </div>
               </div>
@@ -160,3 +148,4 @@ export function SignInForm() {
       </>
     )
 }
+

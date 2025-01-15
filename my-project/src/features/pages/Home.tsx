@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import HopeList from '../HopeList';
 import Header from '../../components/Header';
 import { useUser } from '@/auth/services/UserContext';
+import { HopeTab } from '../HopeTab';
 
 const Home = () => {
 
@@ -16,7 +17,7 @@ const Home = () => {
 
   return (
     <><Header />
-    <HopeList></HopeList>
+    <HopeTab></HopeTab>
     </>
   );
 };
