@@ -1,36 +1,23 @@
-import { useState } from 'react';
+import React from "react";
+import { HopeTab } from "../HopeTab";
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from '../auth/services/UserContext';
-import axios from 'axios';
 
-const Header = () => {
+const TeacherPage: React.FC = () => {
 
-  const { user, setUser } = useUser(); 
   const navigate = useNavigate();
-
-  async function logOutUser() {
-    const API_URL = "http://localhost:8080/api/authentication/logout";
-    try {
-      const response = await axios.post(API_URL);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
   
   const handleLogOut = async (e) => {
     e.preventDefault();
-    try {
-      await logOutUser();
-      setUser(null);
-      navigate("/connexion"); 
-    } catch (error) {
-      console.error("Erreur lors de la déconnexion :", error.message);
+    navigate("/connexion"); 
     }
+    
+  const handleAddFeedback = (index: number, feedback: string) => {
+    console.log(`Ajouter le feedback "${feedback}" à l'index ${index}`);
   };
 
   return (
-    <div className="bg-white">
+    <div>
+      <div className="bg-white">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -57,34 +44,27 @@ const Header = () => {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
             <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-              Bonjour {user.firstName || "Utilisateur"} {user.lastName || ""}!
+              Bonjour "Nom du Professeur" !
             </h1>
             <p className="mt-4 text-lg text-gray-700">
-              Vous êtes connecté en tant que <strong>{user.role || "Visiteur"}</strong>.
+              Vous êtes connecté en tant que <strong>Professeur</strong>.
             </p>
           </div>
 
           <div className="mt-10 text-center">
-            {user.role === 'ADMIN' && (
               <div>
                 <h2 className="text-xl font-bold">Section Administrateur</h2>
               </div>
-            )}
-            {user.role === 'TEACHER' && (
-              <div>
-                <h2 className="text-xl font-bold">Section Enseignant</h2>
-              </div>
-            )}
-            {user.role === 'STUDENT' && (
-              <div>
-                <h2 className="text-xl font-bold">Section Étudiant</h2>
-              </div>
-            )}
           </div>
         </div>
       </div>
     </div>
+      <h1 className="text-2xl font-bold text-center mb-6">Tableau HOPE - Enseignant</h1>
+      <HopeTab allowAdd={false} allowRemove={false} allowEdit={false} />
+
+    </div>
   );
 };
 
-export default Header;
+export default TeacherPage;
+

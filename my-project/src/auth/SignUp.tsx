@@ -79,9 +79,9 @@ export function SignUpForm() {
     e.preventDefault();
     try {
       formSchema.parse(formValues);
-
-      setErrors({});
-
+  
+      setErrors({}); 
+  
       const newUser = {
         email: formValues.email,
         password: formValues.password,
@@ -89,10 +89,9 @@ export function SignUpForm() {
         lastName: formValues.lastName,
         role: formValues.role.toUpperCase(),
       };
-
+  
       await signupUser(newUser);
-
-      console.log("Inscription réussie !");
+  
       navigate("/connexion", { state: { successMessage: "Inscription réussie !" } });
     } catch (err: any) {
       if (err.errors) {
@@ -101,6 +100,8 @@ export function SignUpForm() {
           errorMessages[error.path[0]] = error.message;
         });
         setErrors(errorMessages);
+      } else if (err.message.includes("Email")) {
+        setErrors({ email: "Cette adresse e-mail est déjà utilisée." });
       } else {
         console.error("Erreur lors de l'inscription :", err);
         setErrors({ server: "Échec de l'inscription, veuillez réessayer." });
@@ -130,7 +131,6 @@ export function SignUpForm() {
                 type="email"
                 value={formValues.email}
                 onChange={handleChange}
-                required
                 autoComplete="email"
                 className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
                   errors.email ? "border-red-500 outline-red-500" : ""
@@ -151,7 +151,6 @@ export function SignUpForm() {
                 type="password"
                 value={formValues.password}
                 onChange={handleChange}
-                required
                 autoComplete="current-password"
                 className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
                   errors.password ? "border-red-500 outline-red-500" : ""
@@ -172,7 +171,6 @@ export function SignUpForm() {
                 type="text"
                 value={formValues.firstName}
                 onChange={handleChange}
-                required
                 autoComplete="given-name"
                 className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
                   errors.firstName ? "border-red-500 outline-red-500" : ""
@@ -195,7 +193,6 @@ export function SignUpForm() {
                 type="text"
                 value={formValues.lastName}
                 onChange={handleChange}
-                required
                 autoComplete="family-name"
                 className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
                   errors.lastName ? "border-red-500 outline-red-500" : ""
@@ -222,8 +219,9 @@ export function SignUpForm() {
                   errors.role ? "border-red-500 outline-red-500" : ""
                 }`}
               >
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
+                <option value="">Choisissez un rôle</option>
+                <option value="student">Étudiant</option>
+                <option value="teacher">Enseignant</option>
               </select>
               {errors.role && <p className="mt-1 text-sm text-red-500">{errors.role}</p>}
             </div>
@@ -238,6 +236,13 @@ export function SignUpForm() {
             </button>
           </div>
         </form>
+
+        <div className="mt-4 text-sm text-center">
+          <span>Vous avez un compte ? </span>
+          <Link to="/connexion" className="font-semibold text-red-400 hover:text-red-600">
+            Se connecter
+          </Link>
+        </div>
       </div>
     </div>
   );

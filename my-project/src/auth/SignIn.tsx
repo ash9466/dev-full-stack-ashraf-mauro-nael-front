@@ -19,7 +19,7 @@ export function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useUser();
-  const [error, setError] = useState<string>("");
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const [formValues, setFormValues] = useState<FormValues>({
     email: "",
@@ -34,18 +34,6 @@ export function SignInForm() {
     }));
   };
 
-  async function loginUser(credentials: { email: string; password: string; }) {
-    const API_URL = "http://localhost:8080/api/authentication/authenticate";
-    try {
-      const response = await axios.post(API_URL, credentials);
-      return response.data;
-    } catch (error) {
-      console.error("Erreur lors de la connexion :", error.response?.data || error.message);
-      setError("Erreur de connexion au serveur. Veuillez réessayer plus tard.");
-      throw error;
-    }
-  }
-
   const submitForm = async (e) => {
     e.preventDefault();
     try {
@@ -54,10 +42,32 @@ export function SignInForm() {
         password: formValues.password,
       };
       const user = await loginUser(credentials);
-      setUser(user); 
+      setUser(getUserLogged());
       navigate('/accueil');
     } catch (error) {
-      setError("Nom d'utilisateur ou mot de passe incorrect.");
+      setErrors({ server: "Nom d'utilisateur ou mot de passe incorrect." });
+    }
+  };
+
+  async function loginUser(credentials: { email: string; password: string; }) {
+    const API_URL = "http://localhost:8080/api/authentication/authenticate";
+    try {
+      const response = await axios.post(API_URL, credentials);
+      return response.data;
+    } catch (error) {
+      console.error("Erreur lors de la connexion :", error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  const getUserLogged = async () => {
+    const GET_USER_BY_EMAIL_API_URL = "http://localhost:8080/api/users/me";
+    try {
+      const response = await axios.get(GET_USER_BY_EMAIL_API_URL);
+      return response.data;
+    } catch (error: any) {
+      console.error("Utilisateur inconnu :", error.response?.data || error.message);
+      throw error;
     }
   };
 
@@ -91,11 +101,11 @@ export function SignInForm() {
                   required
                   autoComplete="email"
                   className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
-                    error? "border-red-500 outline-red-500" : ""
+                    errors.email ? "border-red-500 outline-red-500" : ""
                   }`}
                 />
-                {error && (
-                  <p className="mt-1 text-sm text-red-500">{error}</p>
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-500">{errors.email}</p>
                 )}
                 </div>
               </div>
@@ -121,11 +131,14 @@ export function SignInForm() {
                   required
                   autoComplete="current-password"
                   className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
-                    error? "border-red-500 outline-red-500" : ""
+                    errors.password ? "border-red-500 outline-red-500" : ""
                   }`}
                 />
-                {error && (
-                  <p className="mt-1 text-sm text-red-500">{error}</p>
+                {errors.password && (
+                  <p className="mt-1 text-sm text-red-500">{errors.password}</p>
+                )}
+                {successMessage && (
+                  <p className="mt-1 text-sm text-green-500">{successMessage}</p>
                 )}
                 </div>
               </div>
