@@ -50,12 +50,6 @@ const TeacherPage: React.FC = () => {
               Vous êtes connecté en tant que <strong>Professeur</strong>.
             </p>
           </div>
-
-          <div className="mt-10 text-center">
-              <div>
-                <h2 className="text-xl font-bold">Section Administrateur</h2>
-              </div>
-          </div>
         </div>
       </div>
     </div>

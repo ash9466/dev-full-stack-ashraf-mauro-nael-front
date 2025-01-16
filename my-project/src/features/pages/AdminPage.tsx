@@ -57,16 +57,10 @@ const AdminPage: React.FC = () => {
               Vous êtes connecté en tant que <strong>Administrateur</strong>.
             </p>
           </div>
-
-          <div className="mt-10 text-center">
-              <div>
-                <h2 className="text-xl font-bold">Section Administrateur</h2>
-              </div>
-          </div>
         </div>
       </div>
     </div>
-      <HopeTab allowAdd={true} allowRemove={true} onAddElement={handleAddElement} onRemoveElement={handleRemoveElement} onEditField={handleEditField}/>
+      <HopeTab allowAdd={true} allowRemove={true} allowEdit={true}/>
     </div>
   );
 };

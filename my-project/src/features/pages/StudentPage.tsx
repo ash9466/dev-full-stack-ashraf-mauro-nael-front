@@ -47,12 +47,6 @@ const navigate = useNavigate();
               Vous êtes connecté en tant que <strong>Etudiant</strong>.
             </p>
           </div>
-
-          <div className="mt-10 text-center">
-              <div>
-                <h2 className="text-xl font-bold">Section Etudiant</h2>
-              </div>
-          </div>
         </div>
       </div>
     </div>

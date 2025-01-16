@@ -8,7 +8,7 @@ interface HopeTabProps {
   onEditField?: (index: number, field: string, value: string) => void;
   allowAdd?: boolean;
   allowRemove?: boolean;
-  allowEdit?: boolean;
+  allowEdit?: boolean; 
 }
 
 export const HopeTab: FC<HopeTabProps> = ({
@@ -54,20 +54,21 @@ export const HopeTab: FC<HopeTabProps> = ({
     if (onEditField) {
       onEditField(index, field, value);
     }
-    setEditingCell(null); 
+    setEditingCell(null);
+  };
+
+  const handleCellClick = (row: number, field: string) => {
+    if (allowEdit) {
+      setEditingCell({ row, field });
+    }
   };
 
   const handleRemoveElement = (index: number) => {
     const updatedData = hopeData.filter((_, i) => i !== index);
     setHopeData(updatedData);
-  
     if (onRemoveElement) {
       onRemoveElement(index);
     }
-  };
-  
-  const handleCellClick = (row: number, field: string) => {
-    setEditingCell({ row, field });
   };
 
   const filteredData = hopeData.filter((item) =>
@@ -106,11 +107,12 @@ export const HopeTab: FC<HopeTabProps> = ({
         <tbody>
           {filteredData.map((data, rowIndex) => (
             <tr key={rowIndex} className="odd:bg-white even:bg-gray-50">
+              
               <td
                 className="border border-gray-200 p-4 text-sm text-gray-800"
                 onClick={() => handleCellClick(rowIndex, "Description détaillée")}
               >
-                {editingCell?.row === rowIndex && editingCell.field === "Description détaillée" ? (
+                {allowEdit && editingCell?.row === rowIndex && editingCell.field === "Description détaillée" ? (
                   <input
                     type="text"
                     className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -133,7 +135,7 @@ export const HopeTab: FC<HopeTabProps> = ({
                 className="border border-gray-200 p-4 text-sm text-gray-800"
                 onClick={() => handleCellClick(rowIndex, "Accès")}
               >
-                {editingCell?.row === rowIndex && editingCell.field === "Accès" ? (
+                {allowEdit && editingCell?.row === rowIndex && editingCell.field === "Accès" ? (
                   <input
                     type="text"
                     className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -150,11 +152,10 @@ export const HopeTab: FC<HopeTabProps> = ({
                 )}
               </td>
 
-              {/* Actions */}
               <td className="border border-gray-200 p-4">
                 {allowRemove && (
                   <button
-                  onClick={() => handleRemoveElement(rowIndex)}
+                    onClick={() => handleRemoveElement(rowIndex)}
                     className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
                   >
                     Supprimer
@@ -162,7 +163,6 @@ export const HopeTab: FC<HopeTabProps> = ({
                 )}
               </td>
 
-              {/* Lien & Détails */}
               <td className="border border-gray-200 p-4">
                 <div className="flex space-x-2">
                   <a
@@ -185,52 +185,6 @@ export const HopeTab: FC<HopeTabProps> = ({
           ))}
         </tbody>
       </table>
-
-      {allowAdd && (
-        <div className="mt-6 border border-gray-200 p-4 rounded">
-          <h3 className="text-lg font-semibold mb-4">Ajouter un nouveau hope</h3>
-          <input
-            type="text"
-            placeholder="Description"
-            className="border p-2 rounded w-full mb-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-            value={newElement.description}
-            onChange={(e) =>
-              setNewElement({ ...newElement, description: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Accès"
-            className="border p-2 rounded w-full mb-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-            value={newElement.access}
-            onChange={(e) =>
-              setNewElement({ ...newElement, access: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Lien"
-            className="border p-2 rounded w-full mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
-            value={newElement.link}
-            onChange={(e) =>
-              setNewElement({ ...newElement, link: e.target.value })
-            }
-          />
-          <button
-            onClick={() =>
-              onAddElement &&
-              onAddElement(
-                newElement.description,
-                newElement.access,
-                newElement.link
-              )
-            }
-            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-          >
-            Ajouter
-          </button>
-        </div>
-      )}
     </div>
   );
 };
