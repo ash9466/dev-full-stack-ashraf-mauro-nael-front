@@ -23,11 +23,11 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 1. **Clonez ce dépôt** :
    ```bash
-   git clone https://github.com/utilisateur/nom-du-projet.git
+   git clone https://github.com/ash9466/dev-full-stack-ashraf-mauro-nael-front.git
 
 2. **Accédez au dossier du projet** :
    ```bash
-   cd nom-du-projet
+   cd my-project
 
 3. **Installez les dépendances : Avec npm** :
    ```bash
