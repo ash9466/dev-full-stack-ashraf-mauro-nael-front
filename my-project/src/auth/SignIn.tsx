@@ -54,8 +54,6 @@ export function SignInForm() {
         password: formValues.password,
       };
       const user = await loginUser(credentials);
-      console.log(email);
-      console.log(password);
       setUser(user); 
       navigate('/accueil');
     } catch (error) {

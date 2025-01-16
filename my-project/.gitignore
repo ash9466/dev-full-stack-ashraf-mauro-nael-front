@@ -1,8 +1,6 @@
 
 # dependencies
 /src/lib
-*.json
-*.config.js
 /node_modules
 /.pnp
 .pnp.js
