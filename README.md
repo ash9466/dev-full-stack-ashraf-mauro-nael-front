@@ -14,8 +14,8 @@ L'application utilise **React Router** pour la mise en place des routes d'applic
 
 Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
 
-- [Node.js](https://nodejs.org/) (version 14.x ou plus récente recommandée)
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/) (généralement installé avec Node.js)
+- [Node.js](https://nodejs.org/) (version 14.x au minimum recommandé)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/) 
 
 ---
 
