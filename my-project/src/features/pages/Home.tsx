@@ -1,23 +1,29 @@
-import { useState } from 'react'
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import HopeList from '../HopeList';
-import Header from '../../components/Header';
-import { useUser } from '@/auth/services/UserContext';
-import { HopeTab } from '../HopeTab';
+import Header from "../../components/Header";
+import { useUser } from "@/auth/services/UserContext";
+import { HopeTab } from "../HopeTab";
 
 const Home = () => {
+  const { user } = useUser();
+  const navigate = useNavigate();
 
-  // const { user, setUser } = useUser();
-  
-  // if(!user){
-  //   return(
-  //     <><Header /></>
-  //   );
+  //A décommenter à la fin
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/connexion");
+  //   }
+  // }, [user, navigate]);
+
+  // if (!user) {
+  //   return null;
   // }
 
   return (
-    <><Header />
-    <HopeTab></HopeTab>
+    <>
+      <Header />
+      <HopeTab />
     </>
   );
 };

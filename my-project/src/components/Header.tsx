@@ -17,34 +17,6 @@ const Header = () => {
     navigate("/connexion"); 
   }
 
-  if (!user) {
-    return (
-      <div className="bg-white">
-        <header className="absolute inset-x-0 top-0 z-50">
-          <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
-            <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <Link to="/connexion" className="text-sm font-semibold text-gray-900">
-                Connexion <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </div>
-          </nav>
-        </header>
-        <div className="relative isolate px-6 pt-14 lg:px-8">
-          <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            <div className="text-center">
-              <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-                Bienvenue !
-              </h1>
-              <p className="mt-4 text-lg text-gray-700">
-                Veuillez vous connecter pour accéder au tableau de bord.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-white">
       <header className="absolute inset-x-0 top-0 z-50">
@@ -73,7 +45,7 @@ const Header = () => {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
             <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-              Bonjour {user.prenom || "Utilisateur"} {user.nom || ""}!
+              Bonjour {user.firstName || "Utilisateur"} {user.lastName || ""}!
             </h1>
             <p className="mt-4 text-lg text-gray-700">
               Vous êtes connecté en tant que <strong>{user.role || "Visiteur"}</strong>.
@@ -81,22 +53,19 @@ const Header = () => {
           </div>
 
           <div className="mt-10 text-center">
-            {user.role === 'ADMINISTRATOR' && (
+            {user.role === 'ADMIN' && (
               <div>
                 <h2 className="text-xl font-bold">Section Administrateur</h2>
-                <p>Vous pouvez gérer les utilisateurs et les ressources.</p>
               </div>
             )}
             {user.role === 'TEACHER' && (
               <div>
                 <h2 className="text-xl font-bold">Section Enseignant</h2>
-                <p>Vous pouvez gérer vos cours et outils pédagogiques.</p>
               </div>
             )}
             {user.role === 'STUDENT' && (
               <div>
                 <h2 className="text-xl font-bold">Section Étudiant</h2>
-                <p>Vous pouvez consulter vos ressources pédagogiques.</p>
               </div>
             )}
           </div>

@@ -19,7 +19,7 @@ export function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useUser();
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [error, setError] = useState<string>("");
 
   const [formValues, setFormValues] = useState<FormValues>({
     email: "",
@@ -41,6 +41,7 @@ export function SignInForm() {
       return response.data;
     } catch (error) {
       console.error("Erreur lors de la connexion :", error.response?.data || error.message);
+      setError("Erreur de connexion au serveur. Veuillez réessayer plus tard.");
       throw error;
     }
   }
@@ -53,11 +54,12 @@ export function SignInForm() {
         password: formValues.password,
       };
       const user = await loginUser(credentials);
+      console.log(email);
+      console.log(password);
       setUser(user); 
       navigate('/accueil');
     } catch (error) {
-      console.error("Erreur lors de la connexion :", error);
-      setErrors({ server: "Nom d'utilisateur ou mot de passe incorrect." });
+      setError("Nom d'utilisateur ou mot de passe incorrect.");
     }
   };
 
@@ -91,11 +93,11 @@ export function SignInForm() {
                   required
                   autoComplete="email"
                   className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
-                    errors.email ? "border-red-500 outline-red-500" : ""
+                    error? "border-red-500 outline-red-500" : ""
                   }`}
                 />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                {error && (
+                  <p className="mt-1 text-sm text-red-500">{error}</p>
                 )}
                 </div>
               </div>
@@ -121,14 +123,11 @@ export function SignInForm() {
                   required
                   autoComplete="current-password"
                   className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6 ${
-                    errors.password ? "border-red-500 outline-red-500" : ""
+                    error? "border-red-500 outline-red-500" : ""
                   }`}
                 />
-                {errors.password && (
-                  <p className="mt-1 text-sm text-red-500">{errors.password}</p>
-                )}
-                {successMessage && (
-                  <p className="mt-1 text-sm text-green-500">{successMessage}</p>
+                {error && (
+                  <p className="mt-1 text-sm text-red-500">{error}</p>
                 )}
                 </div>
               </div>

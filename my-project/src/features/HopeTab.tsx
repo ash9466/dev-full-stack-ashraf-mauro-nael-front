@@ -115,58 +115,54 @@ export function HopeTab() {
           </tr>
         </thead>
         <tbody>
-  {filteredData.length > 0 ? (
-    filteredData.map((data, index) => (
-      <tr key={index} className={`odd:bg-white even:bg-gray-50`}>
-        <td className="border border-gray-300 p-4 text-sm text-gray-700 leading-relaxed">
-          {data["Description détaillée"] || "N/A"}
-        </td>
-        <td className="border border-gray-300 p-4 text-sm text-gray-700 leading-relaxed flex items-center justify-between">
-          <span className="flex-1">{data["Accès"] || "N/A"}</span>
-          <a
-            href={data["Lien"]}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-4 px-5 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
-          >
-            Accéder
-          </a>
-        </td>
-        {user?.role === "ADMIN" && (
-          <td className="border border-gray-300 p-4 text-sm text-gray-700 leading-relaxed">
-            <button
-              className="text-red-500 hover:underline"
-              onClick={() => handleRemoveElement(index)}
-            >
-              Supprimer
-            </button>
-          </td>
-        )}
-        <td className="border border-gray-300 p-4 text-sm text-gray-700 leading-relaxed">
-          <button
-            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-            onClick={() => navigateToHopeDetail(data)} 
-          >
-            Détails
-          </button>
-        </td>
-      </tr>
-    ))
-    ) : (
-      <tr>
-        <td
-          colSpan={user?.role === "ADMIN" ? 4 : 3}
-          className="border border
-  jsx
-  Copier
-  Modifier
-          border-gray-300 p-6 text-center text-sm text-gray-500"
-        >
-          Aucun résultat trouvé...
-        </td>
-      </tr>
-    )}
-</tbody>
+          {filteredData.length > 0 ? (
+            filteredData.map((data, index) => (
+              <tr key={index} className={`odd:bg-white even:bg-gray-50`}>
+                <td className="border border-gray-300 p-4 text-sm text-gray-700 leading-relaxed">
+                  {data["Description détaillée"] || "N/A"}
+                </td>
+                <td className="border border-gray-300 p-4 text-sm text-gray-700 leading-relaxed flex items-center justify-between">
+                  <span className="flex-1">{data["Accès"] || "N/A"}</span>
+                  <a
+                    href={data["Lien"]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-4 px-5 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
+                  >
+                    Accéder
+                  </a>
+                </td>
+                <td className="border border-gray-300 p-4 text-sm text-gray-700 leading-relaxed">
+                  <button
+                    className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                    onClick={() => navigateToHopeDetail(data)} 
+                  >
+                    Détails
+                  </button>
+                </td>
+                {user?.role === "ADMIN" && (
+                  <td className="border border-gray-300 p-4 text-sm text-gray-700 leading-relaxed">
+                    <button
+                      className="text-red-500 hover:underline"
+                      onClick={() => handleRemoveElement(index)}
+                    >
+                      Supprimer
+                    </button>
+                  </td>
+                )}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={user?.role === "ADMIN" ? 4 : 3}
+                className="border border-gray-300 p-6 text-center text-sm text-gray-500"
+              >
+                Aucun résultat trouvé...
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
 
       <div className="mt-6">
